@@ -35,7 +35,9 @@ public class Control {
             return "redirect:secret";        }
         else{
             session.setAttribute("loggedIn", "false");
+
         }
+        session.invalidate();
         return "form";
     }
 
@@ -44,11 +46,14 @@ public class Control {
 
         HttpSession session = request.getSession(true);
         if(session.getAttribute("loggedIn") != null && ((String)session.getAttribute("loggedIn")).equals("true")){
+            session.invalidate();
             return "secret";
         }
         else {
+            session.invalidate();
             return "redirect:form";
         }
+
     }
 
     @PostMapping("/logout")
